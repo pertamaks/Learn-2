@@ -8,7 +8,12 @@ Before do
 
 end
 
-After do
+After do |scenario|
+
+  if (scenario.failed?).eql false
+    @browser.save_screenshot("Passed #{scenario.name+".png"}")
+    embed("Passed #{scenario.name+".png"}","image/.png")
+  end
 
   @browser.quit
 

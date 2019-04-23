@@ -5,6 +5,7 @@ gem 'rspec'
 gem 'selenium-webdriver'
 gem 'rake'
 gem 'json'
+gem 'ffi'
 
 # gem to connect to saucelabs and also dynamically change browser parameters
 gem 'saucelabs'
