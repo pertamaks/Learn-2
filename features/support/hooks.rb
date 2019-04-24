@@ -11,8 +11,13 @@ end
 After do |scenario|
 
   if (scenario.failed?).eql false
-    @browser.save_screenshot("Passed #{scenario.name+".png"}")
-    embed("Passed #{scenario.name+".png"}","image/.png")
+    @browser.save_screenshot("Passed #{scenario.name + ".png"}")
+    embed("Passed #{scenario.name + ".png"}", "image/.png")
+  end
+
+  if (scenario.failed?)
+    @browser.save_screenshot("Failed #{scenario.name + ".png"}")
+    embed("Failed #{scenario.name + ".png"}", "image/.png")
   end
 
   @browser.quit

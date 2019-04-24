@@ -1,26 +1,82 @@
 Given(/^User enter the website$/) do
+  # go to homepage
   @browser.get 'https://the-internet.herokuapp.com/'
-  #validation
-  p "#{@browser.title} is opened"
+
+  # -= VALIDATION =- #
+  #open home page
+  def home_title
+    if (@browser.title) == 'The Internet'
+      p "Page #{@browser.title} is Validated"
+    else
+      p "Page #{@browser.title} is not Validated"
+    end
+  end
 end
 
 And(/^User go to forgot password menu$/) do
-  btn = @browser.find_element(xpath:'//*[@id="content"]/ul/li[19]/a')
-  btn.click if @wait.until{btn.displayed?}
+  # locator forgot password button
+  btn = @browser.find_element(xpath: '//*[@id="content"]/ul/li[19]/a')
+  # click the forgot password button
+  if home_title == "Page #{@browser.title} is Validated"
+    btn.click if @wait.until {btn.displayed?}
+  end
+
+  # -= VALIDATION =- #
+  # validate forgot password page
+  def forgot_title
+    jdl = @browser.find_element(css: '#content > div > h2')
+    @wait.until {jdl.displayed?}
+    if (jdl.text) == 'Forgot Password'
+      p "Page #{jdl.text} is Validated"
+    else
+      p "Page #{jdl.text} is not Validated"
+    end
+  end
 end
 
 And(/^User enter the email address$/) do
-  fld = @browser.find_element(xpath:'//*[@id="email"]')
-  mel = 'jembatan@email.com'
-  fld.send_keys mel
-  #validation
-  p "Email inputted" if (fld.have_attributes(mel)).eql false
-  btn = @browser.find_element(xpath:'//*[@id="form_submit"]/i')
-  btn.click if @wait.until{btn.displayed?}
+  # locator email text field
+  def fld
+    @browser.find_element(css: '#email')
+  end
+
+  # email address
+  def fmel
+    'jembatan@email.com'
+  end
+
+  # send email address to email text field
+  if forgot_title == "Page #{@browser.find_element(css: '#content > div > h2').text} is Validated"
+    fld.send_keys fmel
+  end
+
+  # -= VALIDATION =- #
+  # validate email sent to text field
+  def forgot_email
+    if fld.text() == ''
+      p "email inputted"
+    else
+      p "email not inputted"
+    end
+  end
+
+  # locator submit email button
+  btn = @browser.find_element(css: '#form_submit')
+  # click submit email button
+  if forgot_email == "email inputted"
+    btn.click if @wait.until {btn.displayed?}
+  end
 end
 
 Then(/^Password reset successfully sent$/) do
-  text = @browser.find_element(xpath:'//*[@id="content"]')
-  #validation
-  p "Password is sent" if @wait.until{text.displayed?}
+  # -= VALIDATION =- #
+  # validate email successfully sent
+  fscs = @browser.find_element(css: '#content')
+  fscs.text
+  if (fscs.text) == "Your e-mail's been sent!"
+    p "Forgot password email sent"
+  else
+    p "Forgot password email not sent"
+  end
+
 end
