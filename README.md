@@ -1,4 +1,4 @@
-watir_cucumber_template
+selenium_cucumber_template
 =======================
 
-watir, cucumber, ruby template project structure
+selenium, cucumber, ruby template project structure
