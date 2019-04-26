@@ -6,18 +6,18 @@ Given(/^User enter the website$/) do
   #open home page
   def home_title
     if (@browser.title) == 'The Internet'
-      p "Page #{@browser.title} is Validated"
+      p "User enter the website: Page #{@browser.title} is Validated"
     else
-      p "Page #{@browser.title} is not Validated"
+      p "User enter the website: Page #{@browser.title} is not Validated"
     end
   end
 end
 
 And(/^User go to forgot password menu$/) do
   # locator forgot password button
-  btn = @browser.find_element(xpath: '//*[@id="content"]/ul/li[19]/a')
+  btn = @browser.find_element(css: '#content > ul > li:nth-child(19) >a')
   # click the forgot password button
-  if home_title == "Page #{@browser.title} is Validated"
+  if home_title == "User enter the website: Page #{@browser.title} is Validated"
     btn.click if @wait.until {btn.displayed?}
   end
 
@@ -46,7 +46,7 @@ And(/^User enter the email address$/) do
   end
 
   # send email address to email text field
-  if forgot_title == "Page #{@browser.find_element(css: '#content > div > h2').text} is Validated"
+  if forgot_title == "User enter the website: Page #{@browser.find_element(css: '#content > div > h2').text} is Validated"
     fld.send_keys fmel
   end
 

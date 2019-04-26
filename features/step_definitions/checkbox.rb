@@ -1,5 +1,5 @@
 When(/^User go to the checkbox page$/) do
-  link = @browser.find_element(xpath:'//*[@id="content"]/ul/li[6]/a')
+  link = @browser.find_element(css: '#content > ul > li:nth-child(6) > a')
   # -= VALIDATION =- #
   # validate user in checkbox page
   valid = if (link.text) == "Checkboxes"

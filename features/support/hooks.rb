@@ -3,21 +3,19 @@
 Before do
 
   @browser = Selenium::WebDriver.for :chrome
-  @browser.manage.timeouts.implicit_wait = 3
+  @browser.manage.timeouts.implicit_wait = 10
   @wait = Selenium::WebDriver::Wait.new(:timeout => 10)
 
 end
 
 After do |scenario|
 
-  if (scenario.failed?).eql false
-    @browser.save_screenshot("Passed #{scenario.name + ".png"}")
-    embed("Passed #{scenario.name + ".png"}", "image/.png")
+  if (scenario.failed?).eql(false)
+    scn_scd(scenario)
   end
 
-  if (scenario.failed?)
-    @browser.save_screenshot("Failed #{scenario.name + ".png"}")
-    embed("Failed #{scenario.name + ".png"}", "image/.png")
+  if scenario.failed?
+    scn_fld(scenario)
   end
 
   @browser.quit
